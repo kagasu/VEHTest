@@ -1,4 +1,4 @@
-﻿#include <Windows.h>
+#include <Windows.h>
 #include <iostream>
 #include "HWBP.hpp"
 
@@ -54,7 +54,7 @@ LONG WINAPI VectoredExceptionHandler2(EXCEPTION_POINTERS* ExceptionInfo)
 
 void Test2()
 {
-	auto value = 100;
+	auto value = 0;
 	auto address = reinterpret_cast<uint64_t>(&value);
 
 	auto handle = AddVectoredExceptionHandler(0, VectoredExceptionHandler2);
