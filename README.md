@@ -1,5 +1,5 @@
 # VEHTest
-- Example of Hardware Breakpoint + VEH Debugger
+- Example of making debugger using Hardware Breakpoint + VEH
 - x86, x64, WOW64 supported
 
 # Others
