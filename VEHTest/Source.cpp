@@ -1,4 +1,4 @@
-#include <Windows.h>
+﻿#include <Windows.h>
 #include <iostream>
 #include "HWBP.hpp"
 
@@ -32,9 +32,10 @@ void Test1()
 	auto handle = AddVectoredExceptionHandler(0, VectoredExceptionHandler1);
 	if (handle != nullptr)
 	{
-		HWBP::SetBreakPoint(address, Register::Dr0, Condition::Execution, Length::Byte, Status::Enabled);
+		auto threadHandle = GetCurrentThread();
+		HWBP::SetBreakPoint(threadHandle, address, Register::Dr0, Condition::Execution, Length::Byte, Status::Enabled);
 		HelloWorld();
-		HWBP::SetBreakPoint(0, Register::Dr0, Condition::Execution, Length::Byte, Status::Disabled);
+		HWBP::SetBreakPoint(threadHandle, 0, Register::Dr0, Condition::Execution, Length::Byte, Status::Disabled);
 		RemoveVectoredExceptionHandler(handle);
 	}
 }
@@ -60,9 +61,10 @@ void Test2()
 	auto handle = AddVectoredExceptionHandler(0, VectoredExceptionHandler2);
 	if (handle != nullptr)
 	{
-		HWBP::SetBreakPoint(address, Register::Dr0, Condition::Write, Length::DWORD, Status::Enabled);
+		auto threadHandle = GetCurrentThread();
+		HWBP::SetBreakPoint(threadHandle, address, Register::Dr0, Condition::Write, Length::DWORD, Status::Enabled);
 		value = 1;
-		HWBP::SetBreakPoint(0, Register::Dr0, Condition::Execution, Length::Byte, Status::Disabled);
+		HWBP::SetBreakPoint(threadHandle, 0, Register::Dr0, Condition::Execution, Length::Byte, Status::Disabled);
 		RemoveVectoredExceptionHandler(VectoredExceptionHandler2);
 	}
 }

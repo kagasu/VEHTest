@@ -33,7 +33,7 @@ enum class Length
 class HWBP
 {
 public:
-	static void SetBreakPoint(uint64_t address, Register _register, Condition condition, Length length, Status status)
+	static void SetBreakPoint(HANDLE threadHandle, uint64_t address, Register _register, Condition condition, Length length, Status status)
 	{
 #ifdef _WIN64
 		CONTEXT context = { 0 };
@@ -43,9 +43,9 @@ public:
 		context.ContextFlags = CONTEXT_ALL;
 
 #ifdef _WIN64
-		GetThreadContext(GetCurrentThread(), &context);
+		GetThreadContext(threadHandle, &context);
 #else
-		Wow64GetThreadContext(GetCurrentThread(), &context);
+		Wow64GetThreadContext(threadHandle, &context);
 #endif
 
 		if (condition == Condition::Execution && length != Length::Byte)
@@ -104,9 +104,9 @@ public:
 		context.ContextFlags = CONTEXT_DEBUG_REGISTERS;
 
 #ifdef _WIN64
-		SetThreadContext(GetCurrentThread(), &context);
+		SetThreadContext(threadHandle, &context);
 #else
-		Wow64SetThreadContext(GetCurrentThread(), &context);
+		Wow64SetThreadContext(threadHandle, &context);
 #endif
 	}
 };
