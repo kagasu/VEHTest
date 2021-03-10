@@ -14,6 +14,8 @@ LONG WINAPI VectoredExceptionHandler1(EXCEPTION_POINTERS* ExceptionInfo)
 	{
 		std::cout << "Before function call"<< std::endl;
 
+		// Set resume flag
+		// https://en.wikipedia.org/wiki/FLAGS_register
 		ExceptionInfo->ContextRecord->EFlags |= 0x10000;
 		return EXCEPTION_CONTINUE_EXECUTION;
 	}
