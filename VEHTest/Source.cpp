@@ -66,7 +66,7 @@ void Test2()
 		auto threadHandle = GetCurrentThread();
 		HWBP::SetBreakPoint(threadHandle, address, Register::Dr0, Condition::Write, Length::DWORD, Status::Enabled);
 		value = 1;
-		HWBP::SetBreakPoint(threadHandle, 0, Register::Dr0, Condition::Execution, Length::Byte, Status::Disabled);
+		HWBP::SetBreakPoint(threadHandle, 0, Register::Dr0, Condition::Write, Length::DWORD, Status::Disabled);
 		RemoveVectoredExceptionHandler(VectoredExceptionHandler2);
 	}
 }
